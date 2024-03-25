@@ -37,8 +37,7 @@ public class UserController
   }
 
   @PostMapping("/create")
-  public String insertUser(@ModelAttribute("user")UserDTO user, //passes User Object from createUser method
-      Model model)
+  public String insertUser(@ModelAttribute("user")UserDTO user) //passes User Object from createUser method
   {
     userService.save(user); // Object from method parameter
     return "redirect:/user/create"; //redirects to the same endpoint
@@ -57,6 +56,13 @@ public class UserController
   public String updateUser(UserDTO user)
   {
     userService.update(user);
+    return "redirect:/user/create";
+  }
+
+  @GetMapping("/delete/{username}")
+  public String deleteUser(@PathVariable("username")String username)
+  {
+    userService.deleteById(username);
     return "redirect:/user/create";
   }
 }

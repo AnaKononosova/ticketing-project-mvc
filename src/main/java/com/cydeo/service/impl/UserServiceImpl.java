@@ -3,6 +3,7 @@ package com.cydeo.service.impl;
 import com.cydeo.dto.UserDTO;
 import com.cydeo.service.UserService;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -37,5 +38,11 @@ public class UserServiceImpl extends AbstractMapService<UserDTO, String> impleme
   public void update(UserDTO object)
   {
     super.update(object.getUserName(), object);
+  }
+
+  @Override
+  public List<UserDTO> findManagers()
+  {
+    return super.findAll().stream().filter(user-> user.getRole().getId() ==2).collect(Collectors.toList());
   }
 }
